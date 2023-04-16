@@ -100,8 +100,9 @@ public class AttenEdit extends javax.swing.JFrame {
         cbSignin = new javax.swing.JComboBox<>();
         date = new com.toedter.calendar.JDateChooser();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manage Attendance");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(126, 186, 150)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

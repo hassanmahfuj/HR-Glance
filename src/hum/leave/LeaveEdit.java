@@ -98,8 +98,9 @@ public class LeaveEdit extends javax.swing.JFrame {
         startDate = new com.toedter.calendar.JDateChooser();
         txtReason = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manage Leave");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(126, 186, 150)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
