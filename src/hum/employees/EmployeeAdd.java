@@ -1,5 +1,6 @@
 package hum.employees;
 
+import hum.util.config;
 import hum.util.db;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -69,7 +70,7 @@ public class EmployeeAdd extends javax.swing.JPanel {
                 cbRole.setSelectedItem(rs.getString("role"));
             }
         } catch (Exception e) {
-            System.out.println(e + "dd");
+            if(config.DEBUG) System.out.println("getEmp" + e);
         }
     }
     
@@ -246,7 +247,7 @@ public class EmployeeAdd extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(126, 186, 150));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Save");
+        jButton1.setText("SAVE");
         jButton1.setBorder(null);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

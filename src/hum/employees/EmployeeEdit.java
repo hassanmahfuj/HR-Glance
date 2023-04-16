@@ -45,22 +45,19 @@ public class EmployeeEdit extends javax.swing.JPanel {
                 setter.set(new EmployeeAdd(empId));
                 break;
             case "tabAddress":
-                setter.set(new EmployeeAdd(empId));
+                setter.set(new EmpAddress(empId));
                 break;
             case "tabEducation":
-                setter.set(new EmployeeAdd(empId));
+                setter.set(new EmpEducation(empId));
                 break;
             case "tabExperience":
-                setter.set(new EmployeeAdd(empId));
+                setter.set(new EmpExperience(empId));
                 break;
             case "tabBank":
-                setter.set(new EmployeeAdd(empId));
+                setter.set(new EmpBank(empId));
                 break;
             case "tabSalary":
                 setter.set(new EmpSalary(empId));
-                break;
-            case "tabLeave":
-                setter.set(new EmployeeAdd(empId));
                 break;
         }
 
@@ -79,7 +76,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
         tabExperience.setBorder(null);
         tabBank.setBorder(null);
         tabSalary.setBorder(null);
-        tabLeave.setBorder(null);
 
         tabPersonal.setForeground(new Color(102, 102, 102));
         tabAddress.setForeground(new Color(102, 102, 102));
@@ -87,7 +83,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
         tabExperience.setForeground(new Color(102, 102, 102));
         tabBank.setForeground(new Color(102, 102, 102));
         tabSalary.setForeground(new Color(102, 102, 102));
-        tabLeave.setForeground(new Color(102, 102, 102));
     }
 
     @SuppressWarnings("unchecked")
@@ -96,7 +91,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
 
         header = new javax.swing.JPanel();
         empName = new javax.swing.JLabel();
-        tabLeave = new javax.swing.JLabel();
         tabPersonal = new javax.swing.JLabel();
         tabAddress = new javax.swing.JLabel();
         tabEducation = new javax.swing.JLabel();
@@ -113,16 +107,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
         empName.setForeground(new java.awt.Color(51, 51, 51));
         empName.setText("Employees");
         header.add(empName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, -1, -1));
-
-        tabLeave.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
-        tabLeave.setForeground(new java.awt.Color(102, 102, 102));
-        tabLeave.setText("Leave");
-        tabLeave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabLeaveMouseClicked(evt);
-            }
-        });
-        header.add(tabLeave, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, -1, 30));
 
         tabPersonal.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
         tabPersonal.setForeground(new java.awt.Color(126, 186, 150));
@@ -244,10 +228,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
         menuSwitch("tabSalary", evt);
     }//GEN-LAST:event_tabSalaryMouseClicked
 
-    private void tabLeaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabLeaveMouseClicked
-        menuSwitch("tabLeave", evt);
-    }//GEN-LAST:event_tabLeaveMouseClicked
-
     private void iconBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconBackMouseClicked
         ps.change(new EmpMain(ps));
     }//GEN-LAST:event_iconBackMouseClicked
@@ -261,7 +241,6 @@ public class EmployeeEdit extends javax.swing.JPanel {
     private javax.swing.JLabel tabBank;
     private javax.swing.JLabel tabEducation;
     private javax.swing.JLabel tabExperience;
-    private javax.swing.JLabel tabLeave;
     private javax.swing.JLabel tabPersonal;
     private javax.swing.JLabel tabSalary;
     // End of variables declaration//GEN-END:variables
