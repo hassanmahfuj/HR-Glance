@@ -1,6 +1,7 @@
 package hum.attendance;
 
 import hum.util.Callback;
+import hum.util.config;
 import hum.util.db;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -67,11 +68,16 @@ public class AttenEdit extends javax.swing.JFrame {
             String sin = cbSignin.getSelectedItem().toString();
             String sout = cbSignout.getSelectedItem().toString();
             String workingHour = String.valueOf(cbSignout.getSelectedIndex() - cbSignin.getSelectedIndex());
+            String overtimeHour = "0";
+            if(Integer.parseInt(workingHour) > config.OFFICE_HOUR)
+                overtimeHour = String.valueOf(Integer.parseInt(workingHour) - config.OFFICE_HOUR);
+            String isLate = "no";
+            if(cbSignin.getSelectedIndex() > 8) isLate = "yes";
             
             if(attenId.equals(""))
-                db.get().executeUpdate("INSERT INTO attendance (emp_id, date, signin, signout, w_hour) VALUES (?,?,?,?,?)", emp, d, sin, sout, workingHour);
+                db.get().executeUpdate("INSERT INTO attendance (emp_id, date, signin, signout, w_hour, o_hour, is_late) VALUES (?,?,?,?,?,?,?)", emp, d, sin, sout, workingHour, overtimeHour, isLate);
             else
-                db.get().executeUpdate("UPDATE attendance SET date = ?, signin = ?, signout = ?, w_hour = ? WHERE atten_id = ?", d, sin, sout, workingHour, attenId);
+                db.get().executeUpdate("UPDATE attendance SET date = ?, signin = ?, signout = ?, w_hour = ?, o_hour = ?, is_late = ? WHERE atten_id = ?", d, sin, sout, workingHour, overtimeHour, isLate, attenId);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -113,7 +119,7 @@ public class AttenEdit extends javax.swing.JFrame {
 
         cbSignout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbSignout.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM", "11:00 PM" }));
-        cbSignout.setSelectedIndex(15);
+        cbSignout.setSelectedIndex(16);
         jPanel1.add(cbSignout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 370, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -154,7 +160,7 @@ public class AttenEdit extends javax.swing.JFrame {
 
         cbSignin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cbSignin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM", "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM", "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM", "09:00 PM", "10:00 PM", "11:00 PM" }));
-        cbSignin.setSelectedIndex(9);
+        cbSignin.setSelectedIndex(8);
         jPanel1.add(cbSignin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 370, 30));
 
         date.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

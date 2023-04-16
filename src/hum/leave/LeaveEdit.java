@@ -26,7 +26,7 @@ public class LeaveEdit extends javax.swing.JFrame {
         endDate.setDate(new Date());
         
         getEmp();
-        if(!empId.isBlank()) {
+        if(!empId.isEmpty()) {
             cbEmpName.setSelectedIndex(empIds.indexOf(empId));
             cbEmpName.setEnabled(false);
         }

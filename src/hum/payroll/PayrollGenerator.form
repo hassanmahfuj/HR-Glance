@@ -39,20 +39,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" alignment="1" pref="698" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+              <Component id="jScrollPane1" alignment="0" pref="710" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="538" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+              <Component id="jScrollPane1" alignment="0" pref="658" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -62,6 +54,11 @@
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
             <Container class="javax.swing.JPanel" name="jPanel1">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
@@ -92,7 +89,7 @@
                                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="txtName" min="-2" pref="290" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="dcMonth" min="-2" pref="292" max="-2" attributes="0"/>
+                                  <Component id="txtMonth" min="-2" pref="290" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
@@ -116,9 +113,18 @@
                                           <Component id="txtHoursWorked" min="-2" pref="100" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel35" min="-2" pref="130" max="-2" attributes="0"/>
-                                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                                          <Component id="txtOvertimeHour" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel39" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="txtLateCount" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel35" min="-2" pref="130" max="-2" attributes="0"/>
+                                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                                                  <Component id="txtOvertimeHour" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                           <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                                           <Component id="jLabel37" min="-2" pref="130" max="-2" attributes="0"/>
                                           <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
@@ -139,9 +145,9 @@
                               <Component id="jLabel5" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jLabel6" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtName" pref="30" max="32767" attributes="0"/>
-                              <Component id="dcMonth" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtName" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtMonth" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -165,7 +171,12 @@
                               <Component id="txtLeaveHour" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel39" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtLateCount" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel3" min="-2" pref="474" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel48" min="-2" pref="30" max="-2" attributes="0"/>
@@ -205,6 +216,11 @@
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel3">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
                     <Property name="useNullLayout" type="boolean" value="false"/>
@@ -261,7 +277,7 @@
                     <Component class="javax.swing.JSeparator" name="jSeparator1">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="440" width="600" height="10"/>
+                          <AbsoluteConstraints x="0" y="470" width="600" height="10"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -504,7 +520,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="410" y="410" width="170" height="-1"/>
+                          <AbsoluteConstraints x="410" y="440" width="170" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -518,7 +534,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="270" y="410" width="110" height="-1"/>
+                          <AbsoluteConstraints x="270" y="440" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -532,7 +548,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="410" y="320" width="170" height="30"/>
+                          <AbsoluteConstraints x="410" y="350" width="170" height="30"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -546,7 +562,7 @@
                     <Component class="javax.swing.JSeparator" name="jSeparator3">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="360" width="600" height="10"/>
+                          <AbsoluteConstraints x="0" y="390" width="600" height="10"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -574,14 +590,14 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="210" y="370" width="170" height="-1"/>
+                          <AbsoluteConstraints x="210" y="400" width="170" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JSeparator" name="jSeparator4">
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="0" y="400" width="600" height="10"/>
+                          <AbsoluteConstraints x="0" y="430" width="600" height="10"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -594,7 +610,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="10" y="370" width="110" height="-1"/>
+                          <AbsoluteConstraints x="10" y="400" width="110" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -608,7 +624,7 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                          <AbsoluteConstraints x="410" y="370" width="170" height="-1"/>
+                          <AbsoluteConstraints x="410" y="400" width="170" height="-1"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -621,7 +637,34 @@
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="10" y="350" width="110" height="30"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel49">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="16" style="0"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Late (3L/1D)"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="10" y="320" width="110" height="30"/>
+                        </Constraint>
+                      </Constraints>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="txtLate">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Segoe UI" size="16" style="0"/>
+                        </Property>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="0.0"/>
+                      </Properties>
+                      <Constraints>
+                        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                          <AbsoluteConstraints x="410" y="320" width="170" height="30"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -641,7 +684,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="16" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Bussiness Days"/>
+                    <Property name="text" type="java.lang.String" value="Business Days"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel32">
@@ -732,16 +775,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="com.toedter.calendar.JDateChooser" name="dcMonth">
-                  <Properties>
-                    <Property name="dateFormatString" type="java.lang.String" value="MMM - y"/>
-                    <Property name="enabled" type="boolean" value="false"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="16" style="0"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel35">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -768,6 +801,32 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="txtLeaveHour">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="16" style="0"/>
+                    </Property>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="txtMonth">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="0"/>
+                    </Property>
+                    <Property name="focusable" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel39">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="16" style="0"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Late Count"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="txtLateCount">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="16" style="0"/>

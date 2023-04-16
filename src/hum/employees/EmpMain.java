@@ -70,7 +70,7 @@ public class EmpMain extends javax.swing.JPanel {
                 desMouseClicked(evt);
             }
         });
-        header.add(des, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, 30));
+        header.add(des, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, 30));
 
         dep.setFont(new java.awt.Font("JetBrains Mono", 1, 14)); // NOI18N
         dep.setForeground(new java.awt.Color(126, 186, 150));

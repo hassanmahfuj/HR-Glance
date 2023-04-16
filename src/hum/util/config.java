@@ -3,6 +3,7 @@ package hum.util;
 import java.awt.Color;
 
 public class config {
+    final public static boolean DEBUG = true;
 
     final public static Color COLOR_PRIMARY = new Color(29, 35, 51);
     final public static Color COLOR_ACCENT = new Color(101, 143, 255);

@@ -121,7 +121,7 @@
                 <StringItem index="23" value="11:00 PM"/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="15"/>
+            <Property name="selectedIndex" type="int" value="16"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -263,7 +263,7 @@
                 <StringItem index="23" value="11:00 PM"/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="9"/>
+            <Property name="selectedIndex" type="int" value="8"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
