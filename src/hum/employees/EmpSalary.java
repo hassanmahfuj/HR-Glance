@@ -1,5 +1,6 @@
 package hum.employees;
 
+import hum.main.User;
 import hum.util.db;
 import java.sql.ResultSet;
 
@@ -10,6 +11,14 @@ public class EmpSalary extends javax.swing.JPanel {
     public EmpSalary(String empId) {
         initComponents();
         this.empId = empId;
+        
+        if(User.role.equals("Employee")) {
+            txtBasic.setEditable(false);
+            txtInsurance.setEditable(false);
+            txtOthers.setEditable(false);
+            btnSave.setVisible(false);
+        }
+        
         getSalary();
     }
     
@@ -119,6 +128,7 @@ public class EmpSalary extends javax.swing.JPanel {
 
         cbSalaryType.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         cbSalaryType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monthly", "Daily", "Hourly", "Weekly" }));
+        cbSalaryType.setEnabled(false);
 
         txtTotal.setEditable(false);
         txtTotal.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N

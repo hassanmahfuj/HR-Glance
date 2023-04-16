@@ -1,5 +1,6 @@
 package hum.leave;
 
+import hum.main.User;
 import hum.util.Callback;
 import hum.util.db;
 import java.awt.Font;
@@ -14,8 +15,13 @@ public class HolidayList extends javax.swing.JPanel {
     Callback refresh;
 
     public HolidayList() {
-        holidayIds = new ArrayList<>();
         initComponents();
+        holidayIds = new ArrayList<>();
+        if(User.role.equals("Employee")) {
+            btnAdd.setVisible(false);
+            btnUpdate.setVisible(false);
+            btnDelete.setVisible(false);
+        }
         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         dtm = (DefaultTableModel) jTable1.getModel();
         getHoliday();

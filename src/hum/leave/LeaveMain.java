@@ -20,7 +20,7 @@ public class LeaveMain extends javax.swing.JPanel {
     private void menuSwitch(String item, MouseEvent evt) {
         switch(item) {
             case "list":
-                setter.set(new LeaveList(""));
+                setter.set(new LeaveList());
                 break;
             case "holiday":
                 setter.set(new HolidayList());

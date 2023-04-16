@@ -20,10 +20,7 @@ public class AttenMain extends javax.swing.JPanel {
     private void menuSwitch(String item, MouseEvent evt) {
         switch(item) {
             case "list":
-                setter.set(new AttenList(""));
-                break;
-            case "report":
-//                setter.set(new EmployeeAdd(""));
+                setter.set(new AttenList());
                 break;
         }
         
@@ -35,10 +32,8 @@ public class AttenMain extends javax.swing.JPanel {
     
     private void resetMenuSelection() {
         tabList.setBorder(null);
-//        tabReport.setBorder(null);
         
         tabList.setForeground(new Color(102,102,102));
-//        tabReport.setForeground(new Color(102,102,102));
     }
 
     @SuppressWarnings("unchecked")

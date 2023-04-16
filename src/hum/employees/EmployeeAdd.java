@@ -1,5 +1,6 @@
 package hum.employees;
 
+import hum.main.User;
 import hum.util.config;
 import hum.util.db;
 import java.sql.Date;
@@ -13,9 +14,17 @@ public class EmployeeAdd extends javax.swing.JPanel {
     private String empId;
     
     public EmployeeAdd(String empId) {
-        this.empId = empId;
-        
         initComponents();
+        
+        if(User.role.equals("Employee")) {
+            cbDepartment.setEnabled(false);
+            cbDesignation.setEnabled(false);
+            cbRole.setEnabled(false);
+            dateJoin.setEnabled(false);
+            dateLeave.setEnabled(false);
+        }
+        
+        this.empId = empId;
         depIds = new ArrayList<>();
         desIds = new ArrayList<>();
         

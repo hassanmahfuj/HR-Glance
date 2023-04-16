@@ -1,5 +1,6 @@
 package hum.leave;
 
+import hum.main.User;
 import hum.util.Callback;
 import hum.util.db;
 import java.awt.Font;
@@ -14,10 +15,16 @@ public class LeaveList extends javax.swing.JPanel {
     Callback refresh;
     String em;
 
-    public LeaveList(String em) {
-        this.em = em;
-        leaveIds = new ArrayList<>();
+    public LeaveList() {
         initComponents();
+        leaveIds = new ArrayList<>();
+        if(User.role.equals("Employee")) {
+            em = User.empId;
+            btnApprove.setVisible(false);
+            btnReject.setVisible(false);
+        } else {
+            em = "";
+        }
         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         dtm = (DefaultTableModel) jTable1.getModel();
         getLeave();
@@ -45,7 +52,7 @@ public class LeaveList extends javax.swing.JPanel {
                 dtm.addRow(data);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getLeave : " + e);
         }
     }
 
@@ -167,12 +174,12 @@ public class LeaveList extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        new LeaveEdit("", "", refresh).setVisible(true);
+        new LeaveEdit("", em, refresh).setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if(jTable1.getSelectedRow() != -1) {
-            new LeaveEdit(leaveIds.get(jTable1.getSelectedRow()),"", refresh).setVisible(true);
+            new LeaveEdit(leaveIds.get(jTable1.getSelectedRow()), "", refresh).setVisible(true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 

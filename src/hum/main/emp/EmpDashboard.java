@@ -1,7 +1,9 @@
 package hum.main.emp;
 
 import hum.attendance.AttenList;
+import hum.attendance.AttenMain;
 import hum.employees.EmployeeEdit;
+import hum.leave.LeaveMain;
 import hum.main.PanelSwitch;
 import hum.main.User;
 import hum.util.PanelSetter;
@@ -41,10 +43,10 @@ public class EmpDashboard extends javax.swing.JFrame {
                 setter.set(new EmployeeEdit(ps, User.empId));
                 break;
             case "attendance":
-                setter.set(new AttenList(User.empId));
+                setter.set(new AttenMain());
                 break;
             case "leave":
-//                setter.set(new AttenMain());
+                setter.set(new LeaveMain());
                 break;
         }
 

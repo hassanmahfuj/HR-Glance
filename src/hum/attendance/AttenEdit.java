@@ -78,7 +78,7 @@ public class AttenEdit extends javax.swing.JFrame {
                 db.get().executeUpdate("INSERT INTO attendance (emp_id, date, signin, signout, w_hour, o_hour, is_late) VALUES (?,?,?,?,?,?,?)", emp, d, sin, sout, workingHour, overtimeHour, isLate);
             else
                 db.get().executeUpdate("UPDATE attendance SET date = ?, signin = ?, signout = ?, w_hour = ?, o_hour = ?, is_late = ? WHERE atten_id = ?", d, sin, sout, workingHour, overtimeHour, isLate, attenId);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
     }

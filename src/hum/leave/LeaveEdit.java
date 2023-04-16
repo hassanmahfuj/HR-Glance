@@ -25,16 +25,21 @@ public class LeaveEdit extends javax.swing.JFrame {
         startDate.setDate(new Date());
         endDate.setDate(new Date());
         
-        getEmp();
-        if(!empId.isEmpty()) {
-            cbEmpName.setSelectedIndex(empIds.indexOf(empId));
-            cbEmpName.setEnabled(false);
-        }
-        if(!leaveId.isEmpty())
+//        getEmp();
+//        if(!empId.isEmpty()) {
+//            cbEmpName.setSelectedIndex(empIds.indexOf(empId));
+//            cbEmpName.setEnabled(false);
+//        }
+//        if(!leaveId.isEmpty())
+//            getLeave();
+
+        if(leaveId.equals(""))
+            getEmp(empId);
+        else
             getLeave();
     }
     
-    void getEmp() {
+    void getEmp(String empid) {
         try {
             ResultSet rs = db.get().executeQuery("SELECT emp_id, first_name, last_name FROM employees");
             empIds.clear();
@@ -42,6 +47,10 @@ public class LeaveEdit extends javax.swing.JFrame {
                 empIds.add(rs.getString(1));
                 String fullname = rs.getString(2) + " " + rs.getString(3);
                 cbEmpName.addItem(fullname);
+            }
+            if(!empid.equals("")) {
+                cbEmpName.setSelectedIndex(empIds.indexOf(empid));
+                cbEmpName.setEnabled(false);
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -52,9 +61,7 @@ public class LeaveEdit extends javax.swing.JFrame {
         try {
             ResultSet rs = db.get().executeQuery("SELECT * FROM leaves WHERE leave_id = ?", leaveId);
             while(rs.next()) {
-                cbEmpName.setSelectedIndex(empIds.indexOf(rs.getString(2)));
-                cbEmpName.setEnabled(false);
-                
+                getEmp(rs.getString(2));
                 txtReason.setText(rs.getString(3));
                 startDate.setDate(rs.getDate(4));
                 endDate.setDate(rs.getDate(5));

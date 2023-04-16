@@ -15,10 +15,14 @@ public class AttenList extends javax.swing.JPanel {
     Callback refresh;
     String em;
 
-    public AttenList(String em) {
-        this.em = em;
-        attenIds = new ArrayList<>();
+    public AttenList() {
         initComponents();
+        if(User.role.equals("Employee")) {
+            em = User.empId;
+        } else {
+            em = "";
+        }
+        attenIds = new ArrayList<>();
         jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
         dtm = (DefaultTableModel) jTable1.getModel();
         getAtten();
@@ -152,7 +156,7 @@ public class AttenList extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if(jTable1.getSelectedRow() != -1) {
-            new AttenEdit(attenIds.get(jTable1.getSelectedRow()),"", refresh).setVisible(true);
+            new AttenEdit(attenIds.get(jTable1.getSelectedRow()), "", refresh).setVisible(true);
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
