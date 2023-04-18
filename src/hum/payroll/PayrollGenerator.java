@@ -78,11 +78,13 @@ public class PayrollGenerator extends javax.swing.JFrame {
     }
     
     void getHoliday() {
-        ResultSet rs = db.get().executeQuery("SELECT DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) AS num_days FROM holiday WHERE start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')", y, m, y, m, y, m, y, m);
+        ResultSet rs = db.get().executeQuery("SELECT DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM holiday WHERE start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')", y, m, y, m, y, m, y, m);
         try {
+            int days = 0;
             while (rs.next()) {
-                txtHoliday.setText(rs.getString(1));
+                days += Integer.parseInt(rs.getString(1));
             }
+            txtHoliday.setText(String.valueOf(days));
         } catch (SQLException e) {
             if(config.DEBUG) System.out.println("getHoliday" + e);
         }
@@ -148,11 +150,13 @@ public class PayrollGenerator extends javax.swing.JFrame {
         }
         
         try {
-            ResultSet rs = db.get().executeQuery("SELECT SUM(hours) FROM leaves WHERE emp_id = ? AND start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01') AND status = 'Approved'", empId, y, m, y, m);
+            String s = "SELECT DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM leaves WHERE emp_id = ? AND status = 'Approved' AND start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')";
+            ResultSet rs = db.get().executeQuery(s, y, m, y, m, empId, y, m, y, m);
+            int days = 0;
             while(rs.next()) {
-                if(rs.getString(1) != null)
-                    earnedLeaves = Integer.parseInt(rs.getString(1));
+                days += Integer.parseInt(rs.getString(1));
             }
+            earnedLeaves = days * config.OFFICE_HOUR;
         } catch (Exception e) {
             if(config.DEBUG) System.out.println("calcLeaveHour2" + e);
         }
