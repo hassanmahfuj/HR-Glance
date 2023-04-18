@@ -40,7 +40,7 @@ public class EmpExperience extends javax.swing.JPanel {
         }
     }
 
-    void add() {
+    boolean add() {
         String company = txtCompany.getText();
         String position = txtPosition.getText();
         String address = txtAddress.getText();
@@ -48,15 +48,16 @@ public class EmpExperience extends javax.swing.JPanel {
 
         try {
             String s = "INSERT INTO emp_experience (emp_id, company, position, address, duration) VALUES (?, ?, ?, ?, ?)";
-            db.get().executeUpdate(s, empId, company, position, address, duration);
+            return db.get().executeUpdate(s, empId, company, position, address, duration);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("add : " + e);
             }
+            return false;
         }
     }
 
-    void update() {
+    boolean update() {
         String expId = dtm.getValueAt(tbl_data.getSelectedRow(), 0).toString();
         String company = txtCompany.getText();
         String position = txtPosition.getText();
@@ -65,24 +66,26 @@ public class EmpExperience extends javax.swing.JPanel {
 
         try {
             String s = "UPDATE emp_experience SET company = ?, position = ?, address = ?, duration = ? WHERE exp_id = ?";
-            db.get().executeUpdate(s, company, position, address, duration, expId);
+            return db.get().executeUpdate(s, company, position, address, duration, expId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("update : " + e);
             }
+            return false;
         }
     }
 
-    void delete() {
+    boolean delete() {
         String expId = dtm.getValueAt(tbl_data.getSelectedRow(), 0).toString();
 
         try {
             String s = "DELETE FROM emp_experience WHERE exp_id = ?";
-            db.get().executeUpdate(s, expId);
+            return db.get().executeUpdate(s, expId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("delete : " + e);
             }
+            return false;
         }
     }
 
@@ -217,9 +220,13 @@ public class EmpExperience extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (verifyFields()) {
-            add();
-            resetFields();
-            getExperience();
+            if(add()) {
+                resetFields();
+                getExperience();
+                JOptionPane.showMessageDialog(null, "Experience Data Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Fill all the fields");
         }
@@ -228,9 +235,13 @@ public class EmpExperience extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (tbl_data.getSelectedRow() != -1) {
             if (verifyFields()) {
-                update();
-                resetFields();
-                getExperience();
+                if(update()) {
+                    resetFields();
+                    getExperience();
+                    JOptionPane.showMessageDialog(null, "Experience Data Updated Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
             }
@@ -242,9 +253,16 @@ public class EmpExperience extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if (tbl_data.getSelectedRow() != -1) {
-            delete();
-            resetFields();
-            getExperience();
+            int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
+            if(r == 0) {
+                if(delete()) {
+                    resetFields();
+                    getExperience();
+                    JOptionPane.showMessageDialog(null, "Experience Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No item selected");
         }

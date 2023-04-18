@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class LeaveList extends javax.swing.JPanel {
 
@@ -185,8 +186,15 @@ public class LeaveList extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if(jTable1.getSelectedRow() != -1) {
-            db.get().executeUpdate("DELETE FROM leaves WHERE leave_id = ?", leaveIds.get(jTable1.getSelectedRow()));
-            getLeave();
+            int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
+            if(r == 0) {
+                if(db.get().executeUpdate("DELETE FROM leaves WHERE leave_id = ?", leaveIds.get(jTable1.getSelectedRow()))) {
+                    getLeave();
+                    JOptionPane.showMessageDialog(null, "Leave Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

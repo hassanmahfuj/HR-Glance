@@ -14,6 +14,31 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         tools.setIcon(iconClose, "close.png");
     }
+    
+    void loginAction() {
+        try {
+            String s = "SELECT emp_id, username, role, CONCAT(first_name, ' ', last_name) as fullname, des_name FROM employees JOIN designations ON designation = id WHERE username = ? AND password = ?";
+            ResultSet rs = db.get().executeQuery(s, txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
+            if(rs != null && rs.next()) {
+                User.empId = rs.getString(1);
+                User.username = rs.getString(2);
+                User.role = rs.getString(3);
+                User.fullname = rs.getString(4);
+                User.designation = rs.getString(5);
+                
+                if(rs.getString(3).equals("HR Manager"))
+                    new Dashboard().setVisible(true);
+                else
+                    new EmpDashboard().setVisible(true);
+                dispose();
+            } else {
+                new Message("ERROR", "Username / Password is incorrect", 0).setVisible(true);
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
+            new Message("ERROR", e.toString(), 0).setVisible(true);
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -61,6 +86,11 @@ public class Login extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
+            }
+        });
         jPanel5.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 300, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -83,6 +113,11 @@ public class Login extends javax.swing.JFrame {
         jPanel5.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, 90, 30));
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
+            }
+        });
         jPanel5.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 300, 30));
 
         iconClose.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,27 +173,16 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_iconCloseMouseClicked
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        try {
-            ResultSet rs = db.get().executeQuery("SELECT emp_id, username, role FROM employees WHERE username = ? AND password = ?", txtUsername.getText(), String.valueOf(txtPassword.getPassword()));
-            if(rs != null && rs.next()) {
-                User.empId = rs.getString(1);
-                User.username = rs.getString(2);
-                User.role = rs.getString(3);
-                
-                if(rs.getString(3).equals("HR Manager"))
-                    new Dashboard().setVisible(true);
-                else
-                    new EmpDashboard().setVisible(true);
-                dispose();
-            } else {
-                new Message("ERROR", "Username / Password is incorrect", 0).setVisible(true);
-            }
-        } catch (HeadlessException | SQLException e) {
-            System.out.println(e);
-            new Message("ERROR", e.toString(), 0).setVisible(true);
-        }
+        loginAction();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        if(evt.getKeyCode() == 10) loginAction();
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if(evt.getKeyCode() == 10) loginAction();
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

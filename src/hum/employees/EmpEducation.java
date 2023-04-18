@@ -40,7 +40,7 @@ public class EmpEducation extends javax.swing.JPanel {
         }
     }
 
-    void add() {
+    boolean add() {
         String title = txtTitle.getText();
         String institute = txtInstitute.getText();
         String result = txtResult.getText();
@@ -48,15 +48,16 @@ public class EmpEducation extends javax.swing.JPanel {
 
         try {
             String s = "INSERT INTO emp_education (emp_id, degree_title, institute, result, passing_year) VALUES (?, ?, ?, ?, ?)";
-            db.get().executeUpdate(s, empId, title, institute, result, year);
+            return db.get().executeUpdate(s, empId, title, institute, result, year);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("save : " + e);
             }
+            return false;
         }
     }
 
-    void update() {
+    boolean update() {
         String eduId = dtm.getValueAt(tbl_data.getSelectedRow(), 0).toString();
         String title = txtTitle.getText();
         String institute = txtInstitute.getText();
@@ -65,24 +66,26 @@ public class EmpEducation extends javax.swing.JPanel {
 
         try {
             String s = "UPDATE emp_education SET degree_title = ?, institute = ?, result = ?, passing_year = ? WHERE edu_id = ?";
-            db.get().executeUpdate(s, title, institute, result, year, eduId);
+            return db.get().executeUpdate(s, title, institute, result, year, eduId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("update : " + e);
             }
+            return false;
         }
     }
 
-    void delete() {
+    boolean delete() {
         String eduId = dtm.getValueAt(tbl_data.getSelectedRow(), 0).toString();
 
         try {
             String s = "DELETE FROM emp_education WHERE edu_id = ?";
-            db.get().executeUpdate(s, eduId);
+            return db.get().executeUpdate(s, eduId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("delete : " + e);
             }
+            return false;
         }
     }
 
@@ -217,9 +220,13 @@ public class EmpEducation extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         if (verifyFields()) {
-            add();
-            resetFields();
-            getEducation();
+            if(add()) {
+                resetFields();
+                getEducation();
+                JOptionPane.showMessageDialog(null, "Education Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Fill all the fields");
         }
@@ -228,13 +235,16 @@ public class EmpEducation extends javax.swing.JPanel {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (tbl_data.getSelectedRow() != -1) {
             if (verifyFields()) {
-                update();
-                resetFields();
-                getEducation();
+                if(update()) {
+                    resetFields();
+                    getEducation();
+                    JOptionPane.showMessageDialog(null, "Data Updated Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
             }
-
         } else {
             JOptionPane.showMessageDialog(null, "No item selected");
         }
@@ -242,9 +252,16 @@ public class EmpEducation extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if (tbl_data.getSelectedRow() != -1) {
-            delete();
-            resetFields();
-            getEducation();
+            int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
+            if(r == 0) {
+                if(delete()) {
+                    resetFields();
+                    getEducation();
+                    JOptionPane.showMessageDialog(null, "Education Item Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No item selected");
         }

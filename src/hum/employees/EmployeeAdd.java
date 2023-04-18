@@ -6,6 +6,7 @@ import hum.util.db;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class EmployeeAdd extends javax.swing.JPanel {
 
@@ -83,7 +84,7 @@ public class EmployeeAdd extends javax.swing.JPanel {
         }
     }
     
-    void save() {
+    boolean save() {
         String firstName = txtFirstname.getText();
         String lastName = txtLastname.getText();
         String dep = depIds.get(cbDepartment.getSelectedIndex());
@@ -103,13 +104,14 @@ public class EmployeeAdd extends javax.swing.JPanel {
         try {
             if(empId.equals("")) {
                 String s = "INSERT INTO employees (first_name, last_name, department, designation, gender, blood_group, nid, email, contact, dob, do_join, do_leave, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                db.get().executeUpdate(s, firstName, lastName, dep, des, gender, blood, nid, email, contact, dob, doJoin, doLeave, username, password, role);
+                return db.get().executeUpdate(s, firstName, lastName, dep, des, gender, blood, nid, email, contact, dob, doJoin, doLeave, username, password, role);
             } else {
                 String s = "UPDATE employees SET first_name = ?, last_name = ?, department = ?, designation = ?, gender = ?, blood_group = ?, nid = ?, email = ?, contact = ?, dob = ?, do_join = ?, do_leave = ?, username = ?, password = ?, role = ? WHERE emp_id = ?";
-                db.get().executeUpdate(s, firstName, lastName, dep, des, gender, blood, nid, email, contact, dob, doJoin, doLeave, username, password, role, empId);
+                return db.get().executeUpdate(s, firstName, lastName, dep, des, gender, blood, nid, email, contact, dob, doJoin, doLeave, username, password, role, empId);
             }
         } catch (Exception e) {
             System.out.println(e);
+            return false;
         }
     }
 
@@ -288,7 +290,11 @@ public class EmployeeAdd extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        save();
+        if(save()) {
+            JOptionPane.showMessageDialog(null, "Employee Data Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

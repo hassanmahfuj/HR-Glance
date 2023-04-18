@@ -3,6 +3,7 @@ package hum.employees;
 import hum.util.config;
 import hum.util.db;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class EmpBank extends javax.swing.JPanel {
 
@@ -35,7 +36,7 @@ public class EmpBank extends javax.swing.JPanel {
         }
     }
 
-    void save() {
+    boolean save() {
         String bankHolder = txtHolderName.getText();
         String bankName = txtBankName.getText();
         String bankBranch = txtBranch.getText();
@@ -44,11 +45,12 @@ public class EmpBank extends javax.swing.JPanel {
 
         try {
             String s = "UPDATE employees SET bank_holder = ?, bank_name = ?, bank_branch = ?, bank_number = ?, bank_type = ? WHERE emp_id = ?";
-            db.get().executeUpdate(s, bankHolder, bankName, bankBranch, bankNumber, bankType, empId);
+            return db.get().executeUpdate(s, bankHolder, bankName, bankBranch, bankNumber, bankType, empId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("save : " + e);
             }
+            return false;
         }
     }
 
@@ -140,7 +142,11 @@ public class EmpBank extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        save();
+        if(save()) {
+            JOptionPane.showMessageDialog(null, "Employee Bank Details Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

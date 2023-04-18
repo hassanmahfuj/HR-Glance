@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class AttenList extends javax.swing.JPanel {
 
@@ -36,9 +37,9 @@ public class AttenList extends javax.swing.JPanel {
         try {
             ResultSet rs;
             if(em.equals(""))
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id)");
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id) ORDER BY a.date DESC");
             else
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id) WHERE a.emp_id = ?", em);
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id) WHERE a.emp_id = ? ORDER BY a.date DESC", em);
             attenIds.clear();
             dtm.setRowCount(0);
             while (rs.next()) {
@@ -162,8 +163,15 @@ public class AttenList extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if(jTable1.getSelectedRow() != -1) {
-            db.get().executeUpdate("DELETE FROM attendance WHERE atten_id = ?", attenIds.get(jTable1.getSelectedRow()));
-            getAtten();
+            int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
+            if(r == 0) {
+                if(db.get().executeUpdate("DELETE FROM attendance WHERE atten_id = ?", attenIds.get(jTable1.getSelectedRow()))) {
+                    getAtten();
+                    JOptionPane.showMessageDialog(null, "Attendence Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 

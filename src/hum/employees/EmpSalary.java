@@ -3,6 +3,7 @@ package hum.employees;
 import hum.main.User;
 import hum.util.db;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class EmpSalary extends javax.swing.JPanel {
 
@@ -38,11 +39,12 @@ public class EmpSalary extends javax.swing.JPanel {
         }
     }
     
-    private void save() {
+    private boolean save() {
         try {
-            db.get().executeUpdate("UPDATE employees SET sal_type = ?, sal_basic = ?, sal_insurance = ?, sal_others = ? WHERE emp_id = ?", cbSalaryType.getSelectedItem().toString(), txtBasic.getText(), txtInsurance.getText(), txtOthers.getText(), empId);
+            return db.get().executeUpdate("UPDATE employees SET sal_type = ?, sal_basic = ?, sal_insurance = ?, sal_others = ? WHERE emp_id = ?", cbSalaryType.getSelectedItem().toString(), txtBasic.getText(), txtInsurance.getText(), txtOthers.getText(), empId);
         } catch (Exception e) {
             System.out.println(e);
+            return false;
         }
     }
     
@@ -357,7 +359,11 @@ public class EmpSalary extends javax.swing.JPanel {
     }//GEN-LAST:event_txtOthersKeyReleased
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        save();
+        if(save()) {
+            JOptionPane.showMessageDialog(null, "Employee Salary Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
 

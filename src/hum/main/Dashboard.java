@@ -95,6 +95,7 @@ public class Dashboard extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HR Glance");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
 

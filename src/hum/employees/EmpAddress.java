@@ -3,6 +3,7 @@ package hum.employees;
 import hum.util.config;
 import hum.util.db;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class EmpAddress extends javax.swing.JPanel {
 
@@ -36,33 +37,35 @@ public class EmpAddress extends javax.swing.JPanel {
         }
     }
 
-    void savePermanent() {
+    boolean savePermanent() {
         String perAddress = txtPerAddress.getText();
         String perCity = txtPerCity.getText();
         String perCountry = txtPerCountry.getText();
 
         try {
             String s = "UPDATE employees SET add_per_address = ?, add_per_city = ?, add_per_country = ? WHERE emp_id = ?";
-            db.get().executeUpdate(s, perAddress, perCity, perCountry, empId);
+            return db.get().executeUpdate(s, perAddress, perCity, perCountry, empId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("savePermanent : " + e);
             }
+            return false;
         }
     }
 
-    void savePresent() {
+    boolean savePresent() {
         String preAddress = txtPreAddress.getText();
         String preCity = txtPreCity.getText();
         String preCountry = txtPreCountry.getText();
 
         try {
             String s = "UPDATE employees SET add_pre_address = ?, add_pre_city = ?, add_pre_country = ? WHERE emp_id = ?";
-            db.get().executeUpdate(s, preAddress, preCity, preCountry, empId);
+            return db.get().executeUpdate(s, preAddress, preCity, preCountry, empId);
         } catch (Exception e) {
             if (config.DEBUG) {
                 System.out.println("savePresent : " + e);
             }
+            return false;
         }
     }
 
@@ -190,11 +193,19 @@ public class EmpAddress extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerSaveActionPerformed
-        savePermanent();
+        if(savePermanent()) {
+            JOptionPane.showMessageDialog(null, "Employee Address Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnPerSaveActionPerformed
 
     private void btnPreSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreSaveActionPerformed
-        savePresent();
+        if(savePresent()) {
+            JOptionPane.showMessageDialog(null, "Employee Address Saved Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnPreSaveActionPerformed
 
 
