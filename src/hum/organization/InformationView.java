@@ -106,6 +106,7 @@ public class InformationView extends javax.swing.JPanel {
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 450, -1));
 
         txtAddress.setColumns(20);
+        txtAddress.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtAddress.setRows(5);
         jScrollPane1.setViewportView(txtAddress);
 

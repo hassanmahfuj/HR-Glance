@@ -1,11 +1,11 @@
 package hum.main.emp;
 
-import hum.attendance.AttenList;
 import hum.attendance.AttenMain;
 import hum.employees.EmployeeEdit;
 import hum.leave.LeaveMain;
 import hum.main.PanelSwitch;
 import hum.main.User;
+import hum.payroll.PayrollMain;
 import hum.util.PanelSetter;
 import hum.util.config;
 import java.awt.Color;
@@ -48,6 +48,9 @@ public class EmpDashboard extends javax.swing.JFrame {
             case "leave":
                 setter.set(new LeaveMain());
                 break;
+            case "payroll":
+                setter.set(new PayrollMain());
+                break;
         }
 
         if (evt == null) {
@@ -64,11 +67,13 @@ public class EmpDashboard extends javax.swing.JFrame {
         itemProfile.setOpaque(false);
         itemAttendance.setOpaque(false);
         itemLeave.setOpaque(false);
+        itemPayroll.setOpaque(false);
 
         itemDashboard.setForeground(Color.WHITE);
         itemProfile.setForeground(Color.WHITE);
         itemAttendance.setForeground(Color.WHITE);
         itemLeave.setForeground(Color.WHITE);
+        itemPayroll.setForeground(Color.WHITE);
     }
 
     @SuppressWarnings("unchecked")
@@ -85,6 +90,7 @@ public class EmpDashboard extends javax.swing.JFrame {
         itemDashboard = new javax.swing.JLabel();
         itemAttendance = new javax.swing.JLabel();
         itemLeave = new javax.swing.JLabel();
+        itemPayroll = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,6 +192,18 @@ public class EmpDashboard extends javax.swing.JFrame {
         });
         jPanel2.add(itemLeave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 280, 50));
 
+        itemPayroll.setBackground(new java.awt.Color(255, 255, 255));
+        itemPayroll.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        itemPayroll.setForeground(new java.awt.Color(255, 255, 255));
+        itemPayroll.setText("Payroll");
+        itemPayroll.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemPayroll.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemPayrollMouseClicked(evt);
+            }
+        });
+        jPanel2.add(itemPayroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 280, 50));
+
         jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
         mainPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -241,10 +259,15 @@ public class EmpDashboard extends javax.swing.JFrame {
         menuSwitch("leave", evt);
     }//GEN-LAST:event_itemLeaveMouseClicked
 
+    private void itemPayrollMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemPayrollMouseClicked
+        menuSwitch("payroll", evt);
+    }//GEN-LAST:event_itemPayrollMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel itemAttendance;
     private javax.swing.JLabel itemDashboard;
     private javax.swing.JLabel itemLeave;
+    private javax.swing.JLabel itemPayroll;
     private javax.swing.JLabel itemProfile;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

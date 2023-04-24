@@ -1,6 +1,5 @@
 package hum.main;
 
-import hum.main.emp.EmpDashboard;
 import java.awt.EventQueue;
 import javax.swing.UIManager;
 

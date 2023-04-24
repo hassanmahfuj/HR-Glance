@@ -13,6 +13,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         tools.setIcon(iconClose, "close.png");
+        getCompanyDetails();
     }
     
     void loginAction() {
@@ -37,6 +38,20 @@ public class Login extends javax.swing.JFrame {
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
             new Message("ERROR", e.toString(), 0).setVisible(true);
+        }
+    }
+    
+    void getCompanyDetails() {
+        try {
+            ResultSet rs = db.get().executeQuery("SELECT name, address, phone, email FROM company");
+            if(rs.next()) {
+                Company.name = rs.getString(1);
+                Company.address = rs.getString(2);
+                Company.phone = rs.getString(3);
+                Company.email = rs.getString(4);
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
         }
     }
 

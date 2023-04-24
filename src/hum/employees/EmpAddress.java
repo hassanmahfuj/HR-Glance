@@ -93,21 +93,25 @@ public class EmpAddress extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         btnPreSave = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(980, 590));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setPreferredSize(new java.awt.Dimension(950, 590));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel13.setText("Address");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 80, 30));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 80, 30));
 
         txtPerCity.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(txtPerCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 450, -1));
+        jPanel1.add(txtPerCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 460, -1));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel14.setText("Country");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 80, 30));
 
         txtPerCountry.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(txtPerCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 450, -1));
+        jPanel1.add(txtPerCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, 460, -1));
 
         btnPerSave.setBackground(new java.awt.Color(126, 186, 150));
         btnPerSave.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -119,47 +123,49 @@ public class EmpAddress extends javax.swing.JPanel {
                 btnPerSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPerSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 140, 40));
+        jPanel1.add(btnPerSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 140, 40));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Permanent Contact Information");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         txtPerAddress.setColumns(20);
+        txtPerAddress.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPerAddress.setRows(5);
         jScrollPane1.setViewportView(txtPerAddress);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 920, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 940, 100));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel16.setText("City");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 80, 30));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(102, 102, 102));
         jLabel17.setText("Present Contact Information");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel18.setText("Address");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 80, 30));
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 80, 30));
 
         txtPreAddress.setColumns(20);
+        txtPreAddress.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtPreAddress.setRows(5);
         jScrollPane2.setViewportView(txtPreAddress);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 920, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 940, 100));
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel19.setText("City");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 80, 30));
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 80, 30));
 
         txtPreCity.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(txtPreCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 450, -1));
+        jPanel1.add(txtPreCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, 460, -1));
 
         txtPreCountry.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jPanel1.add(txtPreCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 490, 450, -1));
+        jPanel1.add(txtPreCountry, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 490, 470, -1));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel20.setText("Country");
@@ -175,21 +181,9 @@ public class EmpAddress extends javax.swing.JPanel {
                 btnPreSaveActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPreSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 140, 40));
+        jPanel1.add(btnPreSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 530, 140, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 590));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPerSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerSaveActionPerformed

@@ -1,5 +1,6 @@
 package hum.payroll;
 
+import hum.main.User;
 import hum.util.PanelSetter;
 import hum.util.config;
 import java.awt.Color;
@@ -15,12 +16,15 @@ public class PayrollMain extends javax.swing.JPanel {
         initComponents();
         setter = new PanelSetter(body);
         menuSwitch("list", null);
+        if (User.role.equals("Employee")) {
+            tabGenerate.setVisible(false);
+        }
     }
     
     private void menuSwitch(String item, MouseEvent evt) {
         switch(item) {
             case "list":
-                setter.set(new PayrollList(""));
+                setter.set(new PayrollList());
                 break;
             case "payslip":
                 setter.set(new PayrollGenerate());

@@ -1,5 +1,6 @@
 package hum.payroll;
 
+import hum.util.Callback;
 import hum.util.config;
 import hum.util.db;
 import hum.util.tools;
@@ -14,12 +15,14 @@ public class PayrollGenerator extends javax.swing.JFrame {
     Date month;
     String y;
     String m;
+    Callback refresh;
     
-    public PayrollGenerator(String empId, Date month) {
+    public PayrollGenerator(String empId, Date month, Callback refresh) {
         initComponents();
         setLocationRelativeTo(null);
         this.empId = empId;
         this.month = month;
+        this.refresh = refresh;
         dcPayDate.setDate(new Date());
         y = new SimpleDateFormat("yyyy").format(month.getTime());
         m = new SimpleDateFormat("MM").format(month.getTime());
@@ -234,6 +237,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         String s = "INSERT INTO payroll (emp_id, month, hours, gross_pay, deductions, net_pay, pay_date, overtime_hour, leave_hour, late_count, basic, house_rent, medical, conveyance, provident_fund, insurance, tax, others, overtime, late, leave1) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         db.get().executeUpdate(s, empId, new java.sql.Date(month.getTime()), hours, grossPay, deductions, netPay, payDate, overtimeHour, leaveHour, lateCount, basic, houseRent, medical, conveyance, providentFund, insurance, tax, others, overtime, late, leave);
         
+        refresh.something();
         dispose();
     }
     
@@ -304,6 +308,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll Generator");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

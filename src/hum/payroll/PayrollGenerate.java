@@ -144,7 +144,7 @@ public class PayrollGenerate extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        new PayrollGenerator(empIds.get(jTable1.getSelectedRow()), paymentMonth).setVisible(true);
+        new PayrollGenerator(empIds.get(jTable1.getSelectedRow()), paymentMonth, refresh).setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void cbMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMonthActionPerformed

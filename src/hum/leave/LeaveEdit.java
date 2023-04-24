@@ -24,14 +24,6 @@ public class LeaveEdit extends javax.swing.JFrame {
         empIds = new ArrayList<>();
         startDate.setDate(new Date());
         endDate.setDate(new Date());
-        
-//        getEmp();
-//        if(!empId.isEmpty()) {
-//            cbEmpName.setSelectedIndex(empIds.indexOf(empId));
-//            cbEmpName.setEnabled(false);
-//        }
-//        if(!leaveId.isEmpty())
-//            getLeave();
 
         if(leaveId.equals(""))
             getEmp(empId);
@@ -80,7 +72,7 @@ public class LeaveEdit extends javax.swing.JFrame {
             String hours = String.valueOf(tools.calcLeaveHour(startDate.getDate(), endDate.getDate()));
             
             if(leaveId.isEmpty())
-                db.get().executeUpdate("INSERT INTO leaves (emp_id, reason, start_date, end_date, hours) VALUES (?,?,?,?,?)", emp, r, startDate1, endDate1, hours);
+                db.get().executeUpdate("INSERT INTO leaves (emp_id, reason, start_date, end_date, hours, status) VALUES (?,?,?,?,?, 'Pending')", emp, r, startDate1, endDate1, hours);
             else
                 db.get().executeUpdate("UPDATE leaves SET reason = ?, start_date = ?, end_date = ?, hours = ? WHERE leave_id = ?", r, startDate1, endDate1, hours, leaveId);
         } catch (Exception e) {

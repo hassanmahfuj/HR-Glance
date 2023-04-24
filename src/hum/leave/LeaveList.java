@@ -39,9 +39,9 @@ public class LeaveList extends javax.swing.JPanel {
         try {
             ResultSet rs;
             if(em.equals(""))
-                rs = db.get().executeQuery("SELECT a.leave_id, a.emp_id, e.first_name, e.last_name, a.reason, a.start_date, a.end_date, a.hours, a.status FROM leaves a LEFT JOIN employees e USING(emp_id)");
+                rs = db.get().executeQuery("SELECT a.leave_id, a.emp_id, e.first_name, e.last_name, a.reason, a.start_date, a.end_date, a.hours, a.status FROM leaves a LEFT JOIN employees e USING(emp_id) ORDER BY a.leave_id DESC");
             else
-                rs = db.get().executeQuery("SELECT a.leave_id, a.emp_id, e.first_name, e.last_name, a.reason, a.start_date, a.end_date, a.hours, a.status FROM leaves a LEFT JOIN employees e USING(emp_id) WHERE a.emp_id = ?", em);
+                rs = db.get().executeQuery("SELECT a.leave_id, a.emp_id, e.first_name, e.last_name, a.reason, a.start_date, a.end_date, a.hours, a.status FROM leaves a LEFT JOIN employees e USING(emp_id) WHERE a.emp_id = ? ORDER BY a.leave_id DESC", em);
             
             leaveIds.clear();
             dtm.setRowCount(0);
