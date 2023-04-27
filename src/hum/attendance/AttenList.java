@@ -9,7 +9,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -24,6 +26,7 @@ public class AttenList extends javax.swing.JPanel {
     ArrayList<String> attenIds;
     Callback refresh;
     String em;
+    Date attenDate;
 
     public AttenList() {
         initComponents();
@@ -69,6 +72,9 @@ public class AttenList extends javax.swing.JPanel {
             TableColumn column = jTable1.getColumnModel().getColumn(i);
             column.setPreferredWidth(columnWidths[i]);
         }
+        
+        attenDate = new Date();
+        dcAttenDate.setDate(attenDate);
 
         if (User.role.equals("Employee")) {
             em = User.empId;
@@ -87,17 +93,31 @@ public class AttenList extends javax.swing.JPanel {
     void getAtten() {
         try {
             ResultSet rs;
+            java.sql.Date d = new java.sql.Date(dcAttenDate.getDate().getTime());
             if (em.equals("")) {
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id) ORDER BY a.date DESC");
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? ORDER BY a.date DESC", d);
             } else {
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.w_hour FROM attendance a LEFT JOIN employees e USING(emp_id) WHERE a.emp_id = ? ORDER BY a.date DESC", em);
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? WHERE a.emp_id = ? ORDER BY a.date DESC", em);
             }
             attenIds.clear();
             dtm.setRowCount(0);
             while (rs.next()) {
                 attenIds.add(rs.getString(1));
                 String fullName = rs.getString(3) + " " + rs.getString(4);
-                Object[] data = {fullName, rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)};
+                Object[] data = new Object[5];
+                if(rs.getString(1) == null) {
+                    data[0] = fullName;
+                    data[1] = new SimpleDateFormat("yyyy-MM-dd").format(attenDate);
+                    data[2] = "-";
+                    data[3] = "-";
+                    data[4] = "Absent";
+                } else {
+                    data[0] = fullName;
+                    data[1] = rs.getString(5);
+                    data[2] = rs.getString(6);
+                    data[3] = rs.getString(7);
+                    data[4] = "Present";
+                }
                 dtm.addRow(data);
             }
         } catch (Exception e) {
@@ -172,6 +192,11 @@ public class AttenList extends javax.swing.JPanel {
         jPanel1.add(btnAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 120, 30));
 
         dcAttenDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dcAttenDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dcAttenDatePropertyChange(evt);
+            }
+        });
         jPanel1.add(dcAttenDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 190, 30));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 968, -1));
@@ -182,7 +207,7 @@ public class AttenList extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Employee Name", "Date", "Sign In", "Sign Out", "Working Hour"
+                "Employee Name", "Date", "Sign In", "Sign Out", "Status"
             }
         ));
         jTable1.setRowHeight(30);
@@ -222,7 +247,11 @@ public class AttenList extends javax.swing.JPanel {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (jTable1.getSelectedRow() != -1) {
-            new AttenEdit(attenIds.get(jTable1.getSelectedRow()), "", refresh).setVisible(true);
+            if(attenIds.get(jTable1.getSelectedRow()) == null) {
+                JOptionPane.showMessageDialog(null, "Cannot Update This Item", "Info", 0);
+            } else {
+                new AttenEdit(attenIds.get(jTable1.getSelectedRow()), "", refresh).setVisible(true);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No item selected", "Info", 0);
         }
@@ -230,13 +259,17 @@ public class AttenList extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         if (jTable1.getSelectedRow() != -1) {
-            int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
-            if (r == 0) {
-                if (db.get().executeUpdate("DELETE FROM attendance WHERE atten_id = ?", attenIds.get(jTable1.getSelectedRow()))) {
-                    getAtten();
-                    JOptionPane.showMessageDialog(null, "Attendence Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+            if (attenIds.get(jTable1.getSelectedRow()) == null) {
+                JOptionPane.showMessageDialog(null, "Cannot Delete This Item", "Info", 0);
+            } else {
+                int r = JOptionPane.showConfirmDialog(null, "Are you sure?", "Delete", 0);
+                if (r == 0) {
+                    if (db.get().executeUpdate("DELETE FROM attendance WHERE atten_id = ?", attenIds.get(jTable1.getSelectedRow()))) {
+                        getAtten();
+                        JOptionPane.showMessageDialog(null, "Attendence Deleted Succesfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         } else {
@@ -247,6 +280,13 @@ public class AttenList extends javax.swing.JPanel {
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         new AttendAll().setVisible(true);
     }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void dcAttenDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcAttenDatePropertyChange
+        if(dcAttenDate.getDate().getTime() != attenDate.getTime()) {
+            attenDate.setTime(dcAttenDate.getDate().getTime());
+            getAtten();
+        }
+    }//GEN-LAST:event_dcAttenDatePropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

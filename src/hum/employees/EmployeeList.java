@@ -85,17 +85,12 @@ public class EmployeeList extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        btnPrintAll = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnPrintAll.setText("PRINT ALL");
-        jPanel1.add(btnPrintAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 120, 30));
-
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 390, 30));
 
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -139,7 +134,6 @@ public class EmployeeList extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnPrintAll;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

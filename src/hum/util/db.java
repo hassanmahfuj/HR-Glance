@@ -48,12 +48,18 @@ public class db {
         return rs;
     }
     
-    public ResultSet executeQuery(String statement, String ...args) {
+    public ResultSet executeQuery(String statement, Object ...args) {
         ResultSet rs = null;
         try {
             pst = con.prepareStatement(statement);
             for(int i=0; i<args.length; i++) {
-                pst.setString(i+1, args[i]);
+//                pst.setString(i+1, args[i]);
+                if(args[i] instanceof String)
+                    pst.setString(i+1, (String) args[i]);
+                if(args[i] instanceof Date)
+                    pst.setDate(i+1, (Date) args[i]);
+                if(args[i] == null)
+                    pst.setString(i+1, null);
             }
             rs = pst.executeQuery();
         } catch (SQLException ex) {

@@ -6,6 +6,7 @@ import hum.util.tools;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class HolidayEdit extends javax.swing.JFrame {
 
@@ -119,6 +120,11 @@ public class HolidayEdit extends javax.swing.JFrame {
         jPanel1.add(dcEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 370, 30));
 
         dcStartDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        dcStartDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dcStartDatePropertyChange(evt);
+            }
+        });
         jPanel1.add(dcStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 370, 30));
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -139,14 +145,22 @@ public class HolidayEdit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        save();
-        refresh.something();
-        dispose();
+        if(dcStartDate.getDate().getTime() <= dcEndDate.getDate().getTime()) {
+            save();
+            refresh.something();
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Start date cannot be less than End date!");
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void dcStartDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcStartDatePropertyChange
+        dcEndDate.setDate(dcStartDate.getDate());
+    }//GEN-LAST:event_dcStartDatePropertyChange
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

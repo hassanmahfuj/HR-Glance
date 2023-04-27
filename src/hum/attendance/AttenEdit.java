@@ -6,6 +6,7 @@ import hum.util.db;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class AttenEdit extends javax.swing.JFrame {
 
@@ -182,9 +183,13 @@ public class AttenEdit extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        save();
-        refresh.something();
-        dispose();
+        if(cbSignout.getSelectedIndex() < cbSignin.getSelectedIndex()) {
+            JOptionPane.showMessageDialog(null, "Cannot signout before signin!");
+        } else {
+            save();
+            refresh.something();
+            dispose();
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
