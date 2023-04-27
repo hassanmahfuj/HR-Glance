@@ -2,10 +2,19 @@ package hum.employees;
 
 import hum.main.PanelSwitch;
 import hum.util.db;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class EmployeeList extends javax.swing.JPanel {
 
@@ -18,7 +27,39 @@ public class EmployeeList extends javax.swing.JPanel {
         empIds = new ArrayList<>();
         
         initComponents();
-        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        
+        jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setFont(new Font("Segoe UI", Font.BOLD, 16));
+                setBackground(new Color(126, 186, 150));
+                setForeground(new Color(255,255,255));
+                c.setPreferredSize(new Dimension(c.getWidth(), 35));
+                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                return c;
+            }
+        });
+        
+        jTable1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (row % 2 == 0) {
+                    c.setBackground(new Color(255,255,255));
+                } else {
+                    c.setBackground(new Color(229, 241, 234));
+                }
+                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                return c;
+            }
+        });
+
+        int[] columnWidths = {200, 180, 180, 180, 180};
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            TableColumn column = jTable1.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
         
         dtm = (DefaultTableModel) jTable1.getModel();
         getEmp();
@@ -30,7 +71,7 @@ public class EmployeeList extends javax.swing.JPanel {
             while(rs.next()) {
                 empIds.add(rs.getString("emp_id"));
                 String fullName = rs.getString("first_name") + " " + rs.getString("last_name");
-                Object[] data = {fullName, rs.getString("email"), rs.getString("contact"), rs.getString("dep_name"), rs.getString("des_name"), rs.getString("role")};
+                Object[] data = {fullName, rs.getString("email"), rs.getString("contact"), rs.getString("dep_name"), rs.getString("des_name")};
                 dtm.addRow(data);
             }
         } catch (Exception e) {
@@ -63,10 +104,11 @@ public class EmployeeList extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Employee Name", "Email", "Contact", "Department", "Designation", "Role"
+                "Employee Name", "Email", "Contact", "Department", "Designation"
             }
         ));
         jTable1.setRowHeight(30);
+        jTable1.setSelectionForeground(new java.awt.Color(220, 53, 69));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);

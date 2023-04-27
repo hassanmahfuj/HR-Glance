@@ -50,7 +50,7 @@ public class tools {
 
         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             DayOfWeek day = date.getDayOfWeek();
-            if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            if (day == DayOfWeek.FRIDAY || day == DayOfWeek.SATURDAY) {
                 weekendCount++;
             }
         }
@@ -69,7 +69,7 @@ public class tools {
         for (int day = 1; day <= daysInMonth; day++) {
             LocalDate date = yearMonth.atDay(day);
             DayOfWeek dayOfWeek = date.getDayOfWeek();
-            if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {
+            if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
                 businessDays++;
             }
         }

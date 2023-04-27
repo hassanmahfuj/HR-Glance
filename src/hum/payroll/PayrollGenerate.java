@@ -2,6 +2,9 @@ package hum.payroll;
 
 import hum.util.Callback;
 import hum.util.db;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
@@ -10,6 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class PayrollGenerate extends javax.swing.JPanel {
 
@@ -21,7 +30,50 @@ public class PayrollGenerate extends javax.swing.JPanel {
     public PayrollGenerate() {
         empIds = new ArrayList<>();
         initComponents();
-        jTable1.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 16));
+        
+        jTable1.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (column != 1) {
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                } else {
+                    setHorizontalAlignment(SwingConstants.LEFT);
+                }
+                setFont(new Font("Segoe UI", Font.BOLD, 16));
+                setBackground(new Color(126, 186, 150));
+                setForeground(new Color(255,255,255));
+                c.setPreferredSize(new Dimension(c.getWidth(), 35));
+                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                return c;
+            }
+        });
+        
+        jTable1.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (row % 2 == 0) {
+                    c.setBackground(new Color(255,255,255));
+                } else {
+                    c.setBackground(new Color(229, 241, 234));
+                }
+                if (column != 1) {
+                    setHorizontalAlignment(SwingConstants.CENTER);
+                } else {
+                    setHorizontalAlignment(SwingConstants.LEFT);
+                }
+                ((JLabel) c).setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+                return c;
+            }
+        });
+
+        int[] columnWidths = {20, 300, 200};
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            TableColumn column = jTable1.getColumnModel().getColumn(i);
+            column.setPreferredWidth(columnWidths[i]);
+        }
+        
         dtm = (DefaultTableModel) jTable1.getModel();
         
         setCurrentPaymentMonth();
@@ -85,6 +137,7 @@ public class PayrollGenerate extends javax.swing.JPanel {
             }
         ));
         jTable1.setRowHeight(30);
+        jTable1.setSelectionForeground(new java.awt.Color(220, 53, 69));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -98,6 +151,7 @@ public class PayrollGenerate extends javax.swing.JPanel {
 
         cbMonth.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cbMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        cbMonth.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(40, 167, 69)));
         cbMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMonthActionPerformed(evt);
@@ -107,6 +161,7 @@ public class PayrollGenerate extends javax.swing.JPanel {
 
         cbYear.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         cbYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2024", "2025" }));
+        cbYear.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(40, 167, 69)));
         cbYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbYearActionPerformed(evt);

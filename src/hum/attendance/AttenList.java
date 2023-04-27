@@ -114,6 +114,8 @@ public class AttenList extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        btnAdd1 = new javax.swing.JButton();
+        dcAttenDate = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -131,7 +133,7 @@ public class AttenList extends javax.swing.JPanel {
                 btnAddActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 0, 100, 40));
+        jPanel1.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 100, 30));
 
         btnUpdate.setBackground(new java.awt.Color(255, 193, 7));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -143,7 +145,7 @@ public class AttenList extends javax.swing.JPanel {
                 btnUpdateActionPerformed(evt);
             }
         });
-        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 0, 100, 40));
+        jPanel1.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, 100, 30));
 
         btnDelete.setBackground(new java.awt.Color(220, 53, 69));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -155,7 +157,22 @@ public class AttenList extends javax.swing.JPanel {
                 btnDeleteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 100, 40));
+        jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 100, 30));
+
+        btnAdd1.setBackground(new java.awt.Color(40, 167, 69));
+        btnAdd1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd1.setText("ADD ALL");
+        btnAdd1.setBorder(null);
+        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 120, 30));
+
+        dcAttenDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jPanel1.add(dcAttenDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 190, 30));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 968, -1));
 
@@ -170,7 +187,7 @@ public class AttenList extends javax.swing.JPanel {
         ));
         jTable1.setRowHeight(30);
         jTable1.setSelectionForeground(new java.awt.Color(220, 53, 69));
-        jTable1.setShowGrid(false);
+        jTable1.setShowGrid(true);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -227,10 +244,16 @@ public class AttenList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
+    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
+        new AttendAll().setVisible(true);
+    }//GEN-LAST:event_btnAdd1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private com.toedter.calendar.JDateChooser dcAttenDate;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

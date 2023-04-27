@@ -7,6 +7,7 @@ import hum.util.tools;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class PayrollGenerator extends javax.swing.JFrame {
@@ -16,6 +17,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
     String y;
     String m;
     Callback refresh;
+    int holiDays;
     
     public PayrollGenerator(String empId, Date month, Callback refresh) {
         initComponents();
@@ -81,11 +83,24 @@ public class PayrollGenerator extends javax.swing.JFrame {
     }
     
     void getHoliday() {
-        ResultSet rs = db.get().executeQuery("SELECT DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM holiday WHERE start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')", y, m, y, m, y, m, y, m);
+        ResultSet rs = db.get().executeQuery("SELECT start_date, DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM holiday WHERE start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')", y, m, y, m, y, m, y, m);
         try {
+            holiDays = 0;
             int days = 0;
             while (rs.next()) {
-                days += Integer.parseInt(rs.getString(1));
+                Calendar c = Calendar.getInstance();
+                c.setTime(rs.getDate(1));
+                int h = rs.getInt(2);
+                for(int i=0; i<h; i++) {
+                    int d = c.get(Calendar.DAY_OF_WEEK);
+                    if(!(d == 6 || d == 7)) {
+                        holiDays++;
+                    }
+                    
+                    c.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                
+                days += Integer.parseInt(rs.getString(2));
             }
             txtHoliday.setText(String.valueOf(days));
         } catch (SQLException e) {
@@ -95,8 +110,8 @@ public class PayrollGenerator extends javax.swing.JFrame {
     
     void setWorkingHour() {
         int b = Integer.parseInt(txtBusinessDays.getText());
-        int h = Integer.parseInt(txtHoliday.getText());
-        txtWorkingHour.setText(String.valueOf((b - h) * config.OFFICE_HOUR));
+//        int h = Integer.parseInt(txtHoliday.getText());
+        txtWorkingHour.setText(String.valueOf((b - holiDays) * config.OFFICE_HOUR));
     }
     
     void getEmpWorkedHour() {
@@ -141,30 +156,42 @@ public class PayrollGenerator extends javax.swing.JFrame {
     }
     
     void calcLeaveHour() {
-        int workingHour = 0;
-        int attendance = 0;
-        int earnedLeaves = 0;
+//        int workingHour = 0;
+//        int attendance = 0;
+        int leaveHours = 0;
+//        
+//        try {
+//            workingHour = Integer.parseInt(txtWorkingHour.getText());
+//            attendance = Integer.parseInt(txtHoursWorked.getText());
+//        } catch (Exception e) {
+//            if(config.DEBUG) System.out.println("calcLeaveHour1" + e);
+//        }
         
         try {
-            workingHour = Integer.parseInt(txtWorkingHour.getText());
-            attendance = Integer.parseInt(txtHoursWorked.getText());
-        } catch (Exception e) {
-            if(config.DEBUG) System.out.println("calcLeaveHour1" + e);
-        }
-        
-        try {
-            String s = "SELECT DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM leaves WHERE emp_id = ? AND status = 'Approved' AND start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')";
+            String s = "SELECT start_date, DATEDIFF(LEAST(LAST_DAY(CONCAT(?,'-', ?,'-01')), end_date), GREATEST(CONCAT(?,'-', ?,'-01'), start_date)) + 1 AS num_days FROM leaves WHERE emp_id = ? AND NOT status = 'Approved' AND start_date <= LAST_DAY(CONCAT(?,'-', ?,'-01')) AND end_date >= CONCAT(?,'-', ?,'-01')";
             ResultSet rs = db.get().executeQuery(s, y, m, y, m, empId, y, m, y, m);
             int days = 0;
             while(rs.next()) {
-                days += Integer.parseInt(rs.getString(1));
+                Calendar c = Calendar.getInstance();
+                c.setTime(rs.getDate(1));
+                int h = rs.getInt(2);
+                for(int i=0; i<h; i++) {
+                    int d = c.get(Calendar.DAY_OF_WEEK);
+                    if(!(d == 6 || d == 7)) {
+                        days++;
+                    }
+                    
+                    c.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                
+//                days += Integer.parseInt(rs.getString(1));
             }
-            earnedLeaves = days * config.OFFICE_HOUR;
+            leaveHours = days * config.OFFICE_HOUR;
         } catch (Exception e) {
             if(config.DEBUG) System.out.println("calcLeaveHour2" + e);
         }
         
-        int leaveHours = workingHour - attendance + earnedLeaves;
+//        int leaveHours = workingHour - attendance + earnedLeaves;
         txtLeaveHour.setText(String.valueOf(leaveHours));
     }
     
@@ -172,6 +199,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         double basicSalary = Double.parseDouble(txtBasic.getText());
         double workingHour = Double.parseDouble(txtWorkingHour.getText());
         double hourlyRate = basicSalary / workingHour;
+        double dailyRate = hourlyRate * config.OFFICE_HOUR;
         
         double overtimeHour = Double.parseDouble(txtOvertimeHour.getText());
         double overtimeEarned = (hourlyRate * 1.5) * overtimeHour;
@@ -179,7 +207,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         
         int lateCount = Integer.parseInt(txtLateCount.getText());
         int lateStrike = (int) Math.floor(lateCount / 3);
-        double lateDeduction = hourlyRate * lateStrike;
+        double lateDeduction = dailyRate * lateStrike;
         txtLate.setText(String.format("%.1f", lateDeduction));
         
         double leaveHour = Double.parseDouble(txtLeaveHour.getText());
@@ -414,8 +442,8 @@ public class PayrollGenerator extends javax.swing.JFrame {
         jPanel3.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, 30));
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel38.setText("Overtime");
-        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 110, 30));
+        jLabel38.setText("Overtime (1.5% DR)");
+        jPanel3.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 150, 30));
 
         txtNetPay.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtNetPay.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -459,7 +487,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         jPanel3.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 110, 30));
 
         jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel49.setText("Late (3L/1D)");
+        jLabel49.setText("Late (3L=1D)");
         jPanel3.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 110, 30));
 
         txtLate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
