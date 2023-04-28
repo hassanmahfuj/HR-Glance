@@ -3,9 +3,12 @@ package hum.main;
 import hum.main.emp.EmpDashboard;
 import hum.util.db;
 import hum.util.tools;
+import java.awt.Color;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Timer;
 
 public class Login extends javax.swing.JFrame {
     
@@ -14,6 +17,7 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         tools.setIcon(iconClose, "close.png");
         getCompanyDetails();
+        textAnimation();
     }
     
     void loginAction() {
@@ -54,6 +58,21 @@ public class Login extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+    
+    Timer timer;
+    int counter = 6;
+    String tagLine;
+    private void textAnimation() {
+        tagLine = "<html>Empowering your workforce,<br><br>Empowering your success.</html>";
+        timer = new Timer(40, (ActionEvent e) -> {
+            if (counter > tagLine.length()) {
+                timer.stop();
+            } else {
+                txtTagline.setText(tagLine.substring(0, counter++));
+            }
+        });
+        timer.start();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,7 +81,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        txtTagline = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -84,10 +103,9 @@ public class Login extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(29, 35, 51));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("<html>Empowering your workforce,<br><br>Empowering your success.</html>");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 300, 230));
+        txtTagline.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        txtTagline.setForeground(new java.awt.Color(242, 242, 242));
+        jPanel4.add(txtTagline, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 300, 230));
         jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 300, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -202,7 +220,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
     private javax.swing.JLabel iconClose;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -214,6 +231,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JLabel txtTagline;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

@@ -131,6 +131,16 @@ public class EmpDashboard extends javax.swing.JFrame {
                 itemPayroll.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
             }
         });
+        roundPanel1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                txtLogout.setForeground(config.COLOR_SECONDARY);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                txtLogout.setForeground(new Color(60,63,65));
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -147,7 +157,7 @@ public class EmpDashboard extends javax.swing.JFrame {
         itemLeave = new javax.swing.JLabel();
         itemPayroll = new javax.swing.JLabel();
         roundPanel1 = new hum.util.RoundPanel();
-        jLabel3 = new javax.swing.JLabel();
+        txtLogout = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -253,11 +263,11 @@ public class EmpDashboard extends javax.swing.JFrame {
         });
         roundPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(60, 63, 65));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logout");
-        roundPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, -1));
+        txtLogout.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        txtLogout.setForeground(new java.awt.Color(60, 63, 65));
+        txtLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtLogout.setText("Logout");
+        roundPanel1.add(txtLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, -1));
 
         jPanel2.add(roundPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 220, 50));
 
@@ -328,11 +338,11 @@ public class EmpDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel itemPayroll;
     private javax.swing.JLabel itemProfile;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel mainPanel;
     private hum.util.RoundPanel roundPanel1;
+    private javax.swing.JLabel txtLogout;
     // End of variables declaration//GEN-END:variables
 }
