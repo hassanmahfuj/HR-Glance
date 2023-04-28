@@ -8,7 +8,9 @@ import hum.payroll.PayrollMain;
 import hum.util.PanelSetter;
 import hum.util.config;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,7 +22,8 @@ public class Dashboard extends javax.swing.JFrame {
 
     public Dashboard() {
         initComponents();
-
+        setupMenuHoverEffect();
+        
         setter = new PanelSetter(mainPanel);
         menuSwitch("dashboard", null);
 
@@ -75,6 +78,69 @@ public class Dashboard extends javax.swing.JFrame {
         itemLeave.setForeground(Color.WHITE);
         itemPayroll.setForeground(Color.WHITE);
     }
+    
+    void setupMenuHoverEffect() {
+        itemDashboard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemDashboard.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemDashboard.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+        itemOrganization.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemOrganization.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemOrganization.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+        itemEmployees.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemEmployees.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemEmployees.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+        itemAttendance.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemAttendance.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemAttendance.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+        itemLeave.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemLeave.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemLeave.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+        itemPayroll.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                itemPayroll.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, config.COLOR_SECONDARY));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                itemPayroll.setBorder(BorderFactory.createEmptyBorder(0, 8, 0, 0));
+            }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -84,14 +150,15 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        panelMenu = new javax.swing.JPanel();
+        itemPayroll = new javax.swing.JLabel();
+        itemLeave = new javax.swing.JLabel();
+        itemAttendance = new javax.swing.JLabel();
+        itemEmployees = new javax.swing.JLabel();
         itemOrganization = new javax.swing.JLabel();
         itemDashboard = new javax.swing.JLabel();
-        itemEmployees = new javax.swing.JLabel();
-        itemPayroll = new javax.swing.JLabel();
-        itemAttendance = new javax.swing.JLabel();
-        itemLeave = new javax.swing.JLabel();
+        roundPanel1 = new hum.util.RoundPanel();
+        jLabel3 = new javax.swing.JLabel();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,33 +196,70 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 130));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        panelMenu.setOpaque(false);
+        panelMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        itemPayroll.setBackground(new java.awt.Color(255, 255, 255));
+        itemPayroll.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        itemPayroll.setForeground(new java.awt.Color(255, 255, 255));
+        itemPayroll.setText("Payroll");
+        itemPayroll.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemPayroll.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel6MouseClicked(evt);
+                itemPayrollMouseClicked(evt);
             }
         });
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelMenu.add(itemPayroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 280, 50));
 
-        jLabel3.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(60, 63, 65));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logout");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 220, 50));
+        itemLeave.setBackground(new java.awt.Color(255, 255, 255));
+        itemLeave.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        itemLeave.setForeground(new java.awt.Color(255, 255, 255));
+        itemLeave.setText("Leave");
+        itemLeave.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemLeave.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemLeaveMouseClicked(evt);
+            }
+        });
+        panelMenu.add(itemLeave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 280, 50));
 
-        jPanel2.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 240, 50));
+        itemAttendance.setBackground(new java.awt.Color(255, 255, 255));
+        itemAttendance.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        itemAttendance.setForeground(new java.awt.Color(255, 255, 255));
+        itemAttendance.setText("Attendance");
+        itemAttendance.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemAttendanceMouseClicked(evt);
+            }
+        });
+        panelMenu.add(itemAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 280, 50));
+
+        itemEmployees.setBackground(new java.awt.Color(255, 255, 255));
+        itemEmployees.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        itemEmployees.setForeground(new java.awt.Color(255, 255, 255));
+        itemEmployees.setText("Employees");
+        itemEmployees.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemEmployees.setName("emp"); // NOI18N
+        itemEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemEmployeesMouseClicked(evt);
+            }
+        });
+        panelMenu.add(itemEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 280, 50));
 
         itemOrganization.setBackground(new java.awt.Color(255, 255, 255));
         itemOrganization.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
         itemOrganization.setForeground(new java.awt.Color(255, 255, 255));
         itemOrganization.setText("Organization");
         itemOrganization.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
+        itemOrganization.setName("org"); // NOI18N
         itemOrganization.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 itemOrganizationMouseClicked(evt);
             }
         });
-        jPanel2.add(itemOrganization, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 280, 50));
+        panelMenu.add(itemOrganization, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 280, 50));
 
         itemDashboard.setBackground(new java.awt.Color(255, 255, 255));
         itemDashboard.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
@@ -168,55 +272,25 @@ public class Dashboard extends javax.swing.JFrame {
                 itemDashboardMouseClicked(evt);
             }
         });
-        jPanel2.add(itemDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 280, 50));
+        panelMenu.add(itemDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 280, 50));
 
-        itemEmployees.setBackground(new java.awt.Color(255, 255, 255));
-        itemEmployees.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        itemEmployees.setForeground(new java.awt.Color(255, 255, 255));
-        itemEmployees.setText("Employees");
-        itemEmployees.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
-        itemEmployees.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel2.add(panelMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 300, 460));
+
+        roundPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        roundPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemEmployeesMouseClicked(evt);
+                roundPanel1MouseClicked(evt);
             }
         });
-        jPanel2.add(itemEmployees, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 280, 50));
+        roundPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        itemPayroll.setBackground(new java.awt.Color(255, 255, 255));
-        itemPayroll.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        itemPayroll.setForeground(new java.awt.Color(255, 255, 255));
-        itemPayroll.setText("Payroll");
-        itemPayroll.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
-        itemPayroll.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemPayrollMouseClicked(evt);
-            }
-        });
-        jPanel2.add(itemPayroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 280, 50));
+        jLabel3.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(60, 63, 65));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Logout");
+        roundPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, -1));
 
-        itemAttendance.setBackground(new java.awt.Color(255, 255, 255));
-        itemAttendance.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        itemAttendance.setForeground(new java.awt.Color(255, 255, 255));
-        itemAttendance.setText("Attendance");
-        itemAttendance.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
-        itemAttendance.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemAttendanceMouseClicked(evt);
-            }
-        });
-        jPanel2.add(itemAttendance, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 280, 50));
-
-        itemLeave.setBackground(new java.awt.Color(255, 255, 255));
-        itemLeave.setFont(new java.awt.Font("JetBrains Mono", 1, 20)); // NOI18N
-        itemLeave.setForeground(new java.awt.Color(255, 255, 255));
-        itemLeave.setText("Leave");
-        itemLeave.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 8, 0, 0));
-        itemLeave.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                itemLeaveMouseClicked(evt);
-            }
-        });
-        jPanel2.add(itemLeave, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 280, 50));
+        jPanel2.add(roundPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 630, 220, 50));
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
@@ -253,10 +327,6 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPanel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel6MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jPanel6MouseClicked
-
     private void itemDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemDashboardMouseClicked
         menuSwitch("dashboard", evt);
     }//GEN-LAST:event_itemDashboardMouseClicked
@@ -281,6 +351,11 @@ public class Dashboard extends javax.swing.JFrame {
         menuSwitch("leave", evt);
     }//GEN-LAST:event_itemLeaveMouseClicked
 
+    private void roundPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_roundPanel1MouseClicked
+        dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_roundPanel1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel itemAttendance;
     private javax.swing.JLabel itemDashboard;
@@ -293,7 +368,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JPanel panelMenu;
+    private hum.util.RoundPanel roundPanel1;
     // End of variables declaration//GEN-END:variables
 }

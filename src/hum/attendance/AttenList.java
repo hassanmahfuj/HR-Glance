@@ -78,6 +78,8 @@ public class AttenList extends javax.swing.JPanel {
 
         if (User.role.equals("Employee")) {
             em = User.empId;
+            dcAttenDate.setVisible(false);
+            btnAddAll.setVisible(false);
         } else {
             em = "";
         }
@@ -97,7 +99,7 @@ public class AttenList extends javax.swing.JPanel {
             if (em.equals("")) {
                 rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? ORDER BY a.date DESC", d);
             } else {
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? WHERE a.emp_id = ? ORDER BY a.date DESC", em);
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id WHERE a.emp_id = ? ORDER BY a.date DESC", em);
             }
             attenIds.clear();
             dtm.setRowCount(0);
@@ -134,7 +136,7 @@ public class AttenList extends javax.swing.JPanel {
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnAdd1 = new javax.swing.JButton();
+        btnAddAll = new javax.swing.JButton();
         dcAttenDate = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -179,17 +181,17 @@ public class AttenList extends javax.swing.JPanel {
         });
         jPanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 10, 100, 30));
 
-        btnAdd1.setBackground(new java.awt.Color(40, 167, 69));
-        btnAdd1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAdd1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd1.setText("ADD ALL");
-        btnAdd1.setBorder(null);
-        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+        btnAddAll.setBackground(new java.awt.Color(40, 167, 69));
+        btnAddAll.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAddAll.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddAll.setText("ADD ALL");
+        btnAddAll.setBorder(null);
+        btnAddAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdd1ActionPerformed(evt);
+                btnAddAllActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAdd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 120, 30));
+        jPanel1.add(btnAddAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 120, 30));
 
         dcAttenDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dcAttenDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -277,9 +279,9 @@ public class AttenList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
+    private void btnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAllActionPerformed
         new AttendAll().setVisible(true);
-    }//GEN-LAST:event_btnAdd1ActionPerformed
+    }//GEN-LAST:event_btnAddAllActionPerformed
 
     private void dcAttenDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcAttenDatePropertyChange
         if(dcAttenDate.getDate().getTime() != attenDate.getTime()) {
@@ -290,7 +292,7 @@ public class AttenList extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnAdd1;
+    private javax.swing.JButton btnAddAll;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
     private com.toedter.calendar.JDateChooser dcAttenDate;
