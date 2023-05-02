@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,8 @@ public class EmpDashboard extends javax.swing.JFrame {
 
     public EmpDashboard() {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         setupMenuHoverEffect();
 
         setter = new PanelSetter(mainPanel);

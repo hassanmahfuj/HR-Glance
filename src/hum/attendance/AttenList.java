@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +25,11 @@ public class AttenList extends javax.swing.JPanel {
 
     DefaultTableModel dtm;
     ArrayList<String> attenIds;
+    ArrayList<String> empIds;
     Callback refresh;
     String em;
     Date attenDate;
+    boolean firstAction = true;
 
     public AttenList() {
         initComponents();
@@ -67,7 +70,7 @@ public class AttenList extends javax.swing.JPanel {
             }
         });
 
-        int[] columnWidths = {200, 100, 100, 100, 50};
+        int[] columnWidths = {200, 100, 50, 50, 150};
         for (int i = 0; i < jTable1.getColumnCount(); i++) {
             TableColumn column = jTable1.getColumnModel().getColumn(i);
             column.setPreferredWidth(columnWidths[i]);
@@ -80,11 +83,18 @@ public class AttenList extends javax.swing.JPanel {
             em = User.empId;
             dcAttenDate.setVisible(false);
             btnAddAll.setVisible(false);
+            cbEmployess.setVisible(false);
+            jLabel1.setVisible(false);
+            jLabel2.setVisible(false);
         } else {
             em = "";
+//            cbEmployess.setVisible(false);
+//            jLabel1.setVisible(false);
         }
         attenIds = new ArrayList<>();
+        empIds = new ArrayList<>();
         dtm = (DefaultTableModel) jTable1.getModel();
+        getEmployeesData();
         getAtten();
 
         refresh = () -> {
@@ -97,7 +107,7 @@ public class AttenList extends javax.swing.JPanel {
             ResultSet rs;
             java.sql.Date d = new java.sql.Date(dcAttenDate.getDate().getTime());
             if (em.equals("")) {
-                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? ORDER BY a.date DESC", d);
+                rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout, a.o_hour, a.is_late FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id AND a.date = ? ORDER BY a.date DESC", d);
             } else {
                 rs = db.get().executeQuery("SELECT a.atten_id, a.emp_id, e.first_name, e.last_name, a.date, a.signin, a.signout FROM employees e LEFT JOIN attendance a ON e.emp_id = a.emp_id WHERE a.emp_id = ? ORDER BY a.date DESC", em);
             }
@@ -107,6 +117,7 @@ public class AttenList extends javax.swing.JPanel {
                 attenIds.add(rs.getString(1));
                 String fullName = rs.getString(3) + " " + rs.getString(4);
                 Object[] data = new Object[5];
+//                System.out.println(rs.getString(1));
                 if(rs.getString(1) == null) {
                     data[0] = fullName;
                     data[1] = new SimpleDateFormat("yyyy-MM-dd").format(attenDate);
@@ -119,11 +130,31 @@ public class AttenList extends javax.swing.JPanel {
                     data[2] = rs.getString(6);
                     data[3] = rs.getString(7);
                     data[4] = "Present";
+                    if (em.equals("")) {
+                        if(rs.getInt(8) > 0) {
+                            data[4] += " / Overtime";
+                        }
+                        if(rs.getString(9).equals("yes")) {
+                            data[4] += " / Late";
+                        }
+                    }
                 }
                 dtm.addRow(data);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e + " getAtten");
+        }
+    }
+    
+    void getEmployeesData() {
+        try {
+            ResultSet rs = db.get().executeQuery("SELECT emp_id, CONCAT(first_name, ' ', last_name) as name FROM employees");
+            while(rs.next()) {
+                empIds.add(rs.getString(1));
+                cbEmployess.addItem(rs.getString(2));
+            }
+        } catch (SQLException e) {
+            System.out.println(e + " getEmployeesData");
         }
     }
 
@@ -138,6 +169,9 @@ public class AttenList extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnAddAll = new javax.swing.JButton();
         dcAttenDate = new com.toedter.calendar.JDateChooser();
+        cbEmployess = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -191,7 +225,7 @@ public class AttenList extends javax.swing.JPanel {
                 btnAddAllActionPerformed(evt);
             }
         });
-        jPanel1.add(btnAddAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 10, 120, 30));
+        jPanel1.add(btnAddAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 110, 30));
 
         dcAttenDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dcAttenDate.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -199,7 +233,23 @@ public class AttenList extends javax.swing.JPanel {
                 dcAttenDatePropertyChange(evt);
             }
         });
-        jPanel1.add(dcAttenDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 190, 30));
+        jPanel1.add(dcAttenDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 180, 30));
+
+        cbEmployess.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        cbEmployess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbEmployessActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cbEmployess, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 180, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("By Name");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 10, 60, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("By Date");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 50, 30));
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 968, -1));
 
@@ -286,16 +336,29 @@ public class AttenList extends javax.swing.JPanel {
     private void dcAttenDatePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcAttenDatePropertyChange
         if(dcAttenDate.getDate().getTime() != attenDate.getTime()) {
             attenDate.setTime(dcAttenDate.getDate().getTime());
+            em = "";
             getAtten();
         }
     }//GEN-LAST:event_dcAttenDatePropertyChange
+
+    private void cbEmployessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEmployessActionPerformed
+        if (firstAction) {
+            firstAction = false;
+        } else {
+            em = empIds.get(cbEmployess.getSelectedIndex());
+            getAtten();
+        }
+    }//GEN-LAST:event_cbEmployessActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddAll;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> cbEmployess;
     private com.toedter.calendar.JDateChooser dcAttenDate;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -41,8 +41,22 @@ public class EmpSalary extends javax.swing.JPanel {
     
     private boolean save() {
         try {
-            return db.get().executeUpdate("UPDATE employees SET sal_type = ?, sal_basic = ?, sal_insurance = ?, sal_others = ? WHERE emp_id = ?", cbSalaryType.getSelectedItem().toString(), txtBasic.getText(), txtInsurance.getText(), txtOthers.getText(), empId);
-        } catch (Exception e) {
+            double basic = Double.parseDouble(txtBasic.getText());
+            double insurance = 0;
+            double others = 0;
+            try {
+                insurance = Double.parseDouble(txtInsurance.getText());
+            } catch (NumberFormatException e) {
+            }
+            try {
+                others = Double.parseDouble(txtOthers.getText());
+            } catch (NumberFormatException e) {
+            }
+            String b = String.valueOf(basic);
+            String i = String.valueOf(insurance);
+            String o = String.valueOf(others);
+            return db.get().executeUpdate("UPDATE employees SET sal_type = ?, sal_basic = ?, sal_insurance = ?, sal_others = ? WHERE emp_id = ?", cbSalaryType.getSelectedItem().toString(), b, i, o, empId);
+        } catch (NumberFormatException e) {
             System.out.println(e);
             return false;
         }

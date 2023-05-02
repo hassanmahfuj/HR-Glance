@@ -3,17 +3,19 @@ package hum.main;
 import hum.main.emp.EmpDashboard;
 import hum.util.db;
 import hum.util.tools;
-import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
 public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         setLocationRelativeTo(null);
         tools.setIcon(iconClose, "close.png");
         getCompanyDetails();

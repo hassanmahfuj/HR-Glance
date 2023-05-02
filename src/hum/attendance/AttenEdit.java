@@ -6,6 +6,7 @@ import hum.util.db;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class AttenEdit extends javax.swing.JFrame {
@@ -16,6 +17,8 @@ public class AttenEdit extends javax.swing.JFrame {
     
     public AttenEdit(String attenId, String empId, Callback refresh) {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         setLocationRelativeTo(null);
         this.attenId = attenId;
         this.refresh = refresh;

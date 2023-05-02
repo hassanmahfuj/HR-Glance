@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javax.swing.ImageIcon;
 
 public class PayrollGenerator extends javax.swing.JFrame {
     
@@ -21,6 +22,8 @@ public class PayrollGenerator extends javax.swing.JFrame {
     
     public PayrollGenerator(String empId, Date month, Callback refresh) {
         initComponents();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         setLocationRelativeTo(null);
         this.empId = empId;
         this.month = month;
@@ -199,6 +202,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         double basicSalary = Double.parseDouble(txtBasic.getText());
         double workingHour = Double.parseDouble(txtWorkingHour.getText());
         double hourlyRate = basicSalary / workingHour;
+        txtHourlyRate.setText(String.format("%.1f", hourlyRate));
         double dailyRate = hourlyRate * config.OFFICE_HOUR;
         
         double overtimeHour = Double.parseDouble(txtOvertimeHour.getText());
@@ -333,6 +337,8 @@ public class PayrollGenerator extends javax.swing.JFrame {
         txtMonth = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
         txtLateCount = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        txtHourlyRate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Payroll Generator");
@@ -370,7 +376,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 600, 10));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel13.setText("House Rent");
+        jLabel13.setText("House Rent (50%)");
         jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
 
         txtBasic.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -384,23 +390,23 @@ public class PayrollGenerator extends javax.swing.JFrame {
         jPanel3.add(txtHouseRent, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 170, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel7.setText("Medical");
+        jLabel7.setText("Medical (10%)");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 110, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel8.setText("Conveyance");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 110, 30));
+        jLabel8.setText("Conveyance (10%)");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 150, 30));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel1.setText("Provident Fund");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 110, 30));
+        jLabel1.setText("Provident Fund (12%)");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 160, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel2.setText("Insurance");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel9.setText("Tax");
+        jLabel9.setText("Tax (5%)");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 110, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -569,6 +575,13 @@ public class PayrollGenerator extends javax.swing.JFrame {
         txtLateCount.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtLateCount.setText("0");
 
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel40.setText("Hourly Rate");
+
+        txtHourlyRate.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtHourlyRate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        txtHourlyRate.setText("0");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -627,9 +640,15 @@ public class PayrollGenerator extends javax.swing.JFrame {
                                         .addGap(30, 30, 30)
                                         .addComponent(txtOvertimeHour, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(50, 50, 50)
-                                .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(txtLeaveHour, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(txtLeaveHour, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(txtHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                 .addGap(36, 36, 36))
         );
         jPanel1Layout.setVerticalGroup(
@@ -663,7 +682,9 @@ public class PayrollGenerator extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLateCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLateCount, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHourlyRate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -730,6 +751,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel47;
@@ -752,6 +774,7 @@ public class PayrollGenerator extends javax.swing.JFrame {
     private javax.swing.JLabel txtBusinessDays;
     private javax.swing.JLabel txtConveyance;
     private javax.swing.JLabel txtHoliday;
+    private javax.swing.JLabel txtHourlyRate;
     private javax.swing.JLabel txtHoursWorked;
     private javax.swing.JLabel txtHouseRent;
     private javax.swing.JLabel txtInsurance;

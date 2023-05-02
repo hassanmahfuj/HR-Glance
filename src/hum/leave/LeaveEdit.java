@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class LeaveEdit extends javax.swing.JFrame {
@@ -18,6 +19,8 @@ public class LeaveEdit extends javax.swing.JFrame {
     public LeaveEdit(String leaveId, String empId, Callback refresh) {
         initComponents();
         setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         
         this.leaveId = leaveId;
         this.refresh = refresh;

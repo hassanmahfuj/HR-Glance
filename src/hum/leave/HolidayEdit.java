@@ -6,6 +6,7 @@ import hum.util.tools;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class HolidayEdit extends javax.swing.JFrame {
@@ -16,6 +17,8 @@ public class HolidayEdit extends javax.swing.JFrame {
     public HolidayEdit(String holidayId, Callback refresh) {
         initComponents();
         setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/hum/icons/logo.png"));
+        setIconImage(icon.getImage());
         
         this.holidayId = holidayId;
         this.refresh = refresh;
